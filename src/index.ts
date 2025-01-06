@@ -1,10 +1,17 @@
 import "dotenv/config";
 import * as trpcPlugin from "@trpc/server/adapters/express";
+import cors from "cors";
 import express from "express";
 import { appRouter } from "./router";
 import { createContext } from "./trpc/context";
 
 const app = express();
+
+app.use(
+  cors({
+    origin: process.env.CLIENT_URL,
+  }),
+);
 
 app.use(
   "/trpc",
