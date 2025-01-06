@@ -17,9 +17,6 @@ importers:
       express:
         specifier: ^4.21.2
         version: 4.21.2
-      typescript:
-        specifier: ^5.0.0
-        version: 5.7.2
       zod:
         specifier: ^3.24.1
         version: 3.24.1
@@ -36,6 +33,9 @@ importers:
       tsx:
         specifier: ^4.19.2
         version: 4.19.2
+      typescript:
+        specifier: 5.7.2
+        version: 5.7.2
 
 packages:
 

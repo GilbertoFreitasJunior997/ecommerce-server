@@ -1,1 +1,1 @@
-export type { AppConfig } from "router";
+export type { AppRouter } from "./router";
