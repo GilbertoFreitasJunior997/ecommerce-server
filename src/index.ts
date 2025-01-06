@@ -7,8 +7,6 @@ import { createContext } from "./trpc/context";
 
 const app = express();
 
-console.info(process.env.CLIENT_URL);
-
 app.use(cors());
 
 app.use(
