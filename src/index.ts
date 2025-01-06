@@ -15,9 +15,18 @@ app.use(
 );
 
 if (process.env.NODE_ENV !== "development") {
+  const port = 3000;
+
   try {
-    app.listen(3000, () => {
-      console.info("server listening on 3000");
+    const listener = app.listen(port, () => {
+      const address = listener.address();
+      const listenerPort = address
+        ? typeof address === "string"
+          ? port
+          : address.port
+        : port;
+
+      console.info(`server listening on ${listenerPort}`);
     });
   } catch (error) {
     console.error(error);
