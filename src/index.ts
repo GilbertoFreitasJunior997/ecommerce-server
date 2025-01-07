@@ -1,7 +1,10 @@
 import "dotenv/config";
 import * as trpcPlugin from "@trpc/server/adapters/express";
+import cookieParser from "cookie-parser";
 import cors from "cors";
 import express from "express";
+import { env } from "./lib/env";
+import { isProduction } from "./lib/env/utils";
 import { appRouter } from "./router";
 import { createContext } from "./trpc/context";
 
@@ -9,9 +12,11 @@ const app = express();
 
 app.use(
   cors({
-    origin: process.env.CLIENT_URL,
+    origin: env.CLIENT_URL,
+    credentials: true,
   }),
 );
+app.use(cookieParser());
 
 app.use(
   "/trpc",
@@ -21,7 +26,7 @@ app.use(
   }),
 );
 
-if (process.env.NODE_ENV !== "development") {
+if (!isProduction) {
   const port = 3000;
 
   try {

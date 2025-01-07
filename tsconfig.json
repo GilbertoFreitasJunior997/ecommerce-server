@@ -1,6 +1,9 @@
 {
   "compilerOptions": {
-    "target": "es2020",
+    "lib": [
+      "ES2024"
+    ],
+    "target": "ES2022",
     "module": "commonjs",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
