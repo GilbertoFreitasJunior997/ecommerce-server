@@ -1,5 +1,5 @@
 import * as bcrypt from "bcrypt";
-import type { Request, Response } from "express";
+import type { CookieOptions, Request, Response } from "express";
 import * as jwt from "jsonwebtoken";
 import { env } from "../env";
 import { isProduction } from "../env/utils";
@@ -42,18 +42,19 @@ const createToken = (user: AuthUser) => {
   return token;
 };
 
+const cookieOptions: CookieOptions = {
+  httpOnly: true,
+  secure: isProduction,
+  sameSite: "none",
+  partitioned: true,
+};
 const setTokenCookie = (user: AuthUser, res: Response) => {
   const token = createToken(user);
-  res.cookie(tokenCookieKey, token, {
-    httpOnly: true,
-    secure: isProduction,
-    sameSite: "none",
-    partitioned: true,
-  });
+  res.cookie(tokenCookieKey, token, cookieOptions);
 };
 
 const clearTokenCookie = (res: Response) => {
-  res.clearCookie(tokenCookieKey);
+  res.clearCookie(tokenCookieKey, cookieOptions);
 };
 
 const getTokenUser = (req: Request): AuthUser => {
