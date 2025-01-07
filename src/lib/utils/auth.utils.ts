@@ -48,6 +48,7 @@ const setTokenCookie = (user: AuthUser, res: Response) => {
     httpOnly: true,
     secure: isProduction,
     sameSite: "none",
+    partitioned: true,
   });
 };
 
