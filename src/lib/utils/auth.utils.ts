@@ -46,7 +46,7 @@ const setTokenCookie = (user: AuthUser, res: Response) => {
   const token = createToken(user);
   res.cookie(tokenCookieKey, token, {
     httpOnly: true,
-    secure: !isProduction,
+    secure: isProduction,
     sameSite: "none",
   });
 };
