@@ -1,5 +1,5 @@
-import type { AuthSignInDTO, AuthSignUpDTO } from "../../dtos/auth.dto";
 import type { Context } from "../../trpc/context";
+import type { AuthSignInDTO, AuthSignUpDTO } from "../dtos/auth.dto";
 import { BaseError } from "../errors/_utils";
 import {
   AuthIncorrectEmailOrPasswordError,

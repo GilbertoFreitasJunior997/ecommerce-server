@@ -1,5 +1,5 @@
-import { authSignInDTOSchema, authSignUpDTOSchema } from "../../dtos/auth.dto";
 import { privateProcedure, publicProcedure, router } from "../../trpc";
+import { authSignInDTOSchema, authSignUpDTOSchema } from "../dtos/auth.dto";
 import { authService } from "../services/auth.service";
 
 export const authRoute = router({

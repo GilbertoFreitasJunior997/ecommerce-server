@@ -1,5 +1,5 @@
-import { index, pgTable, serial, text } from "drizzle-orm/pg-core";
-import { createdAt, updatedAt } from "./_utils";
+import { index, integer, pgTable, serial, text } from "drizzle-orm/pg-core";
+import { cascadeReference, createdAt, updatedAt } from "./_utils";
 
 export const userTable = pgTable(
   "users",
@@ -17,3 +17,8 @@ export const userTable = pgTable(
     nameIndex: index("name_index").on(table.name),
   }),
 );
+
+export const userId = () =>
+  integer("user_id")
+    .references(() => userTable.id, cascadeReference)
+    .notNull();

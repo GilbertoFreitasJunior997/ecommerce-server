@@ -2,7 +2,6 @@ import * as bcrypt from "bcrypt";
 import type { CookieOptions, Request, Response } from "express";
 import * as jwt from "jsonwebtoken";
 import { env } from "../env";
-import { isProduction } from "../env/utils";
 import {
   AuthInvalidTokenError,
   AuthPasswordHashError,
@@ -43,8 +42,7 @@ const createToken = (user: AuthUser) => {
 };
 
 const cookieOptions: CookieOptions = {
-  httpOnly: true,
-  secure: isProduction,
+  secure: true,
   sameSite: "none",
   partitioned: true,
 };
@@ -57,8 +55,7 @@ const clearTokenCookie = (res: Response) => {
   res.clearCookie(tokenCookieKey, cookieOptions);
 };
 
-const getTokenUser = (req: Request): AuthUser => {
-  const token = req.cookies[tokenCookieKey];
+const getUserByToken = (token: string): AuthUser => {
   if (!token || typeof token !== "string") {
     throw new AuthInvalidTokenError();
   }
@@ -75,11 +72,18 @@ const getTokenUser = (req: Request): AuthUser => {
   return user;
 };
 
+const getUserByRequest = (req: Request): AuthUser => {
+  const token = req.cookies[tokenCookieKey];
+
+  return getUserByToken(token);
+};
+
 export const authUtils = {
   hashPassword,
   checkPassword,
   createToken,
   setTokenCookie,
   clearTokenCookie,
-  getTokenUser,
+  getUserByToken,
+  getUserByRequest,
 };

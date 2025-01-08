@@ -1,5 +1,4 @@
-import { integer, serial, timestamp } from "drizzle-orm/pg-core";
-import { userTable } from "./user.table";
+import { serial, timestamp } from "drizzle-orm/pg-core";
 
 export const cascadeReference = {
   onDelete: "cascade" as const,
@@ -7,10 +6,6 @@ export const cascadeReference = {
 };
 
 export const id = () => serial().primaryKey();
-export const userId = () =>
-  integer("user_id")
-    .references(() => userTable.id, cascadeReference)
-    .notNull();
 
 export const createdAt = () => timestamp("created_at").notNull().defaultNow();
 export const updatedAt = () =>

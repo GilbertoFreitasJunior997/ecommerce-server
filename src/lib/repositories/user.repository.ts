@@ -1,11 +1,11 @@
 import { eq, or } from "drizzle-orm";
-import { db } from "../../db";
+import { type TxOrDb, db } from "../../db";
 import { userTable } from "../../db/tables";
 import type { User, UserInsert } from "../models/user.model";
 
 export const userRepository = {
-  create: async (insert: UserInsert): Promise<User> => {
-    const [data] = await db.insert(userTable).values(insert).returning();
+  create: async (insert: UserInsert, txOrDb: TxOrDb = db): Promise<User> => {
+    const [data] = await txOrDb.insert(userTable).values(insert).returning();
 
     return data;
   },
